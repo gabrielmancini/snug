@@ -1,5 +1,7 @@
 /*global module:false*/
 
+var path = require('path');
+
 module.exports = function (grunt) {
 
   'use strict';
@@ -10,13 +12,26 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-requirejs');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-recess');
-  grunt.loadNpmTasks('grunt-groc');
   grunt.loadNpmTasks('grunt-karma');
   grunt.loadNpmTasks('grunt-lintblame');
 
+  grunt.loadNpmTasks('grunt-hapi');
+
   // Project configuration.
   grunt.initConfig({
+
+    hapi: {
+      custom_options: {
+        options: {
+          server: path.resolve('./server/server'),
+          bases: {
+            '/': './app',
+            '/lib': './lib',
+            '/assets': './assets'
+          }
+        }
+      }
+    },
 
     lintblame: {
       files: [
@@ -33,7 +48,7 @@ module.exports = function (grunt) {
 
     watch: {
       files: ['<%= lintblame.files %>', 'assets/less/**/*.less', 'app/**/*.less', '!app/compiled/*'],
-      tasks: ['lintblame', 'karma', 'recess'],
+      tasks: ['lintblame', 'karma', 'hapi'],
       options: {
         livereload: true
       }
@@ -48,17 +63,17 @@ module.exports = function (grunt) {
       }
     },
 
-    recess: {
-      white: {
-        options: {
-          compile: true,
-          compress: true
-        },
-        files: {
-          'assets/css/app.css' : ['assets/less/themes/app.less']
-        }
-      }
-    },
+    //recess: {
+      //white: {
+        //options: {
+          //compile: true,
+          //compress: true
+        //},
+        //files: {
+          //'assets/css/app.css' : ['assets/less/themes/app.less']
+        //}
+      //}
+    //},
 
     requirejs: {
       production: {
@@ -121,16 +136,6 @@ module.exports = function (grunt) {
       }
     },
 
-    groc: {
-      javascript: [
-        'app/**/*.js'
-      ],
-      options: {
-        'out': 'docs/',
-        'whitespace-after-token': false
-      }
-    },
-
     karma: {
       'default': {
         configFile: 'karma.conf.js'
@@ -143,7 +148,12 @@ module.exports = function (grunt) {
   grunt.registerTask('default', 'lintblame');
 
   grunt.registerTask('test', ['lintblame', 'karma']);
-  grunt.registerTask('build', ['lintblame', 'karma', 'recess', 'copy', 'requirejs', 'comment_builder']);
+  grunt.registerTask('build', ['lintblame', 'karma', 'copy', 'requirejs', 'comment_builder']);
   grunt.registerTask('docs', 'groc');
+
+  grunt.registerTask('server', [
+    'hapi',
+    'watch'
+  ]);
 
 };
