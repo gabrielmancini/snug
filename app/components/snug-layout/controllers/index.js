@@ -2,13 +2,14 @@ define([
   'helpers/namespace',
   'marionette',
   'lodash',
-  'backbone',
-  'rsvp'
+  'backbone'
 ],
 
-function (app, Marionette, _, Backbone, RSVP) {
+function (app, Marionette, _, Backbone) {
 
   'use strict';
+
+  var $ = Marionette.$;
 
   return Marionette.Controller.extend({
 
@@ -26,7 +27,7 @@ function (app, Marionette, _, Backbone, RSVP) {
     },
 
     _addLayout: function () {
-      var dfd = new RSVP.defer();
+      var dfd = $.Deferred();
 
       // require layout
       require(['hbs!' + this.layout], _.bind(function (layout) {
@@ -56,7 +57,7 @@ function (app, Marionette, _, Backbone, RSVP) {
 
       }, this));
 
-      return dfd.promise;
+      return dfd.promise();
     }
 
   });

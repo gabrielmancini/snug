@@ -90,11 +90,7 @@ module.exports = function (grunt) {
             handlebars:    '../lib/handlebars/handlebars',
             lodash:        '../lib/lodash/dist/lodash',
             backbone:      '../lib/backbone/backbone',
-            marionette:    '../lib/backbone.marionette/lib/backbone.marionette',
-            unique:        '../lib/backbone.uniquemodel/backbone.uniquemodel',
-            localStorage:  '../lib/backbone.localStorage/backbone.localStorage',
-            q:             '../lib/q/q',
-            cocktail:      '../lib/cocktail/Cocktail'
+            marionette:    '../lib/backbone.marionette/lib/backbone.marionette'
           },
 
           shim: {
@@ -106,16 +102,6 @@ module.exports = function (grunt) {
             'marionette': {
               deps: ['backbone'],
               exports: 'Backbone.Marionette'
-            },
-
-            'localStorage': {
-              deps: ['backbone'],
-              exports: 'Backbone.LocalStorage'
-            },
-
-            'uniquemodel': {
-              deps: ['backbone'],
-              exports: 'Backbone.UniqueModel'
             },
 
             'handlebars': {

@@ -8,7 +8,6 @@ require.config({
     lodash:        '/lib/lodash/dist/lodash',
     backbone:      '/lib/backbone/backbone',
     marionette:    '/lib/backbone.marionette/lib/backbone.marionette',
-    rsvp:          '/lib/rsvp/rsvp.amd',
     hoodie:        '/lib/hoodie/dist/hoodie'
   },
 

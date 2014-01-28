@@ -38,7 +38,6 @@ module.exports = function (config) {
       { pattern: 'lib/backbone.marionette/lib/backbone.marionette.js', watched: false, included: false },
       { pattern: 'lib/handlebars/handlebars.js', watched: false, included: false },
       { pattern: 'lib/backbone.marionette.hbs/backbone.marionette.hbs.js', watched: false, included: false },
-      { pattern: 'lib/rsvp/rsvp.amd.js', watched: false, included: false },
 
       'tests/app/config.js'
 
@@ -76,7 +75,6 @@ module.exports = function (config) {
       // source files, that you wanna generate coverage for
       // do not include tests or libraries
       // (these files will be instrumented by Istanbul)
-      'app/**/*.js': ['coverage']
     },
 
     coverageReporter: {
