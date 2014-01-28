@@ -1,10 +1,6 @@
-//
-// tests/app/components/vertebrae-layout/index
-//
-
 define([
   'helpers/namespace',
-  'components/vertebrae-layout/index'
+  'components/snug-layout/index'
 ],
 
 function (app) {

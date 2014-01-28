@@ -17,7 +17,7 @@ function (BaseModel) {
         name: 'app',
 
         components: {
-          'vertebrae-layout': {
+          'snug-layout': {
             config: {
               template: null
             }

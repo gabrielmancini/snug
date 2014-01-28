@@ -16,7 +16,7 @@ function (_, Backbone, Marionette) {
   app.on('initialize:before', function (options) {
 
     // load layout and start app module
-    require(['components/vertebrae-layout/index']);
+    require(['components/snug-layout/index']);
     require(['components/app/index']);
 
     // log to console in debug mode
