@@ -1,4 +1,2 @@
-snug
+WIP - do not use yet
 ====
-
-Single Page Application Scaffold 
