@@ -16,10 +16,8 @@ app.module('snug', function () {
   });
 
   this.on('before:start', function () {
-    var self = this;
-
     app.vent.on('snug', function (name, action) {
-      self._controller.plugins(name, action);
+      console.log('called controller with: ', name, action);
     });
 
   });
