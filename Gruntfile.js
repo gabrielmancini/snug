@@ -1,45 +1,24 @@
 /*global module:false*/
 
-var path = require('path');
-
 module.exports = function (grunt) {
 
   'use strict';
 
-  // custom tasks
-  grunt.loadTasks('build/tasks/');
-
-  grunt.loadNpmTasks('grunt-requirejs');
-  grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-karma');
-  grunt.loadNpmTasks('grunt-lintblame');
+  grunt.loadNpmTasks('grunt-browserify');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
 
-  grunt.loadNpmTasks('grunt-hapi');
 
   // Project configuration.
   grunt.initConfig({
 
-    hapi: {
-      custom_options: {
-        options: {
-          server: path.resolve('./server/server'),
-          bases: {
-            '/': './app',
-            '/lib': './lib',
-            '/assets': './assets'
-          }
-        }
-      }
-    },
+    pkg: require('./package.json'),
 
-    lintblame: {
+    jshint: {
       files: [
         'Gruntfile.js',
-        'karma.conf.js',
-        'app/**/*.js',
-        'tests/**/*-spec.js',
-        'tests/app/config.js'
+        'www/app/**/**/*.js'
       ],
       options: {
         jshintrc: '.jshintrc'
@@ -47,113 +26,134 @@ module.exports = function (grunt) {
     },
 
     watch: {
-      files: ['<%= lintblame.files %>', 'assets/less/**/*.less', 'app/**/*.less', '!app/compiled/*'],
-      tasks: ['lintblame', 'karma', 'hapi'],
+      files: ['<%= jshint.files %>', 'www/app/**/*.html'],
+      tasks: ['jshint', 'browserify:app'],
       options: {
         livereload: true
       }
     },
 
-    copy: {
+    browserify: {
+      libs: {
+        options: {
+          shim: {
+            jquery: {
+              path: 'www/lib/jquery/jquery.js',
+              exports: '$'
+            },
+            lodash: {
+              path: 'www/lib/lodash/dist/lodash.js',
+              exports: '_'
+            },
+            underscore: {
+              path: 'www/lib/underscore/underscore.js',
+              exports: '_'
+            },
+            handlebars: {
+              path: 'www/lib/handlebars/handlebars.js',
+              exports: 'Handlebars'
+            },
+            backbone: {
+              path: 'www/lib/backbone/backbone.js',
+              exports: 'Backbone',
+              depends: {
+                underscore: 'underscore'
+              }
+            },
+            'backbone.babysitter': {
+              path: 'www/lib/backbone.babysitter/lib/backbone.babysitter.js',
+              exports: 'Backbone.Babysitter',
+              depends: {
+                backbone: 'Backbone'
+              }
+            },
+            'backbone.wreqr': {
+              path: 'www/lib/backbone.wreqr/lib/backbone.wreqr.js',
+              exports: 'Backbone.Wreqr',
+              depends: {
+                backbone: 'Backbone'
+              }
+            },
+            'backbone.marionette': {
+              path: 'www/lib/backbone.marionette/lib/backbone.marionette.js',
+              exports: 'Marionette',
+              depends: {
+                jquery: '$',
+                backbone: 'Backbone',
+                underscore: '_'
+              }
+            },
+            routeFilter: {
+              path: 'www/lib/backbone.routefilter/index.js',
+              exports: 'Backbone.Router',
+              depends: {
+                backbone: 'Backbone'
+              }
+            },
+            'backbone-hoodie': {
+              path: './www/lib/backbone-hoodie/index.js',
+              exports: 'Backbone.Hoodie',
+              depends: {
+                backbone: 'Backbone',
+                hoodie: 'Hoodie'
+              }
+            }
+          }
+        },
+        src: ['www/lib/*.js'],
+        dest: 'www/dist/libs.js'
+      },
+      app: {
+        options: {
+          standalone: 'app',
+          //debug: true,
+          transform: [
+            'brfs'
+          ],
+          alias: [
+            './www/lib/jquery/jquery.js:jquery',
+            './www/lib/lodash/dist/lodash.js:lodash',
+            './www/lib/underscore/underscore.js:underscore',
+            './www/lib/handlebars/handlebars.js:handlebars',
+            './www/lib/backbone/backbone.js:backbone',
+            './www/lib/backbone.babysitter/lib/backbone.babysitter.js:backbone.babysitter',
+            './www/lib/backbone.wreqr/lib/backbone.wreqr.js:backbone.wreqr',
+            './www/lib/backbone.marionette/lib/backbone.marionette.js:backbone.marionette',
+            './www/lib/backbone.routefilter/index.js:routefilter',
+            './www/lib/backbone-hoodie/index.js:backbone-hoodie'
+
+          ],
+          external: [
+            './www/lib/jquery/jquery.js',
+            './www/lib/lodash/dist/lodash.js',
+            './www/lib/underscore/underscore.js',
+            './www/lib/handlebars/handlebars.js',
+            './www/lib/backbone/backbone.js',
+            './www/lib/backbone.babysitter/lib/backbone.babysitter.js',
+            './www/lib/backbone.wreqr/lib/backbone.wreqr.js',
+            './www/lib/backbone.marionette/lib/backbone.marionette.js',
+            './www/lib/backbone.routefilter/index.js',
+            './www/lib/backbone-hoodie/index.js'
+          ]
+        },
+        src: ['www/app/init.js'],
+        dest: 'www/dist/app.js',
+      }
+    },
+
+    uglify: {
       dist: {
         files: {
-          'prod/app/index.html': 'app/index.html',
-          'prod/': ['assets/images/*', 'assets/css/*']
+          'www/dist/<%= pkg.name %>.min.js': ['www/app/libs', 'www/app/app.js']
         }
       }
     },
-
-    //recess: {
-      //white: {
-        //options: {
-          //compile: true,
-          //compress: true
-        //},
-        //files: {
-          //'assets/css/app.css' : ['assets/less/themes/app.less']
-        //}
-      //}
-    //},
-
-    requirejs: {
-      production: {
-        options: {
-          almond: true,
-          replaceRequireScript: [{
-            files: ['prod/app/index.html'],
-            module: 'main',
-            modulePath: 'app/main'
-          }],
-          insertRequire: ['main'],
-          baseUrl: 'app/',
-          optimizeCss: 'none',
-          optimize: 'uglify',
-          uglify: {
-            'beautify': false,
-            'no-dead-code': true,
-            'reserved-names': 'require'
-          },
-          inlineText: true,
-          useStrict: true,
-          findNestedDependencies: true,
-          optimizeAllPluginResources: true,
-          paths: {
-            lib:           '../lib/',
-            text:          '../lib/requirejs-text/text',
-            hbs:           '../lib/backbone.marionette.hbs/backbone.marionette.hbs',
-            jquery:        '../lib/jquery/jquery',
-            handlebars:    '../lib/handlebars/handlebars',
-            lodash:        '../lib/lodash/dist/lodash',
-            backbone:      '../lib/backbone/backbone',
-            marionette:    '../lib/backbone.marionette/lib/backbone.marionette'
-          },
-
-          shim: {
-            'backbone': {
-              deps: ['lodash', 'jquery'],
-              exports: 'Backbone'
-            },
-
-            'marionette': {
-              deps: ['backbone'],
-              exports: 'Backbone.Marionette'
-            },
-
-            'handlebars': {
-              exports: 'Handlebars'
-            }
-
-          },
-          out: 'prod/app/main.js',
-          name: 'main'
-        }
-      }
-    },
-
-    comment_builder: {
-      options: {
-        src: 'prod/app/index.html'
-      }
-    },
-
-    karma: {
-      'default': {
-        configFile: 'karma.conf.js'
-      }
-    }
 
   });
 
   // Default task.
-  grunt.registerTask('default', 'lintblame');
-
-  grunt.registerTask('test', ['lintblame', 'karma']);
-  grunt.registerTask('build', ['lintblame', 'karma', 'copy', 'requirejs', 'comment_builder']);
-  grunt.registerTask('docs', 'groc');
-
-  grunt.registerTask('server', [
-    'hapi',
-    'watch'
-  ]);
+  grunt.registerTask('default', ['jshint']);
+  grunt.registerTask('build', ['jshint', 'browserify', 'uglify']);
 
 };
+

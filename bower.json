@@ -3,8 +3,6 @@
   "version": "0.1.0",
   "main": "./app/index.html",
   "dependencies": {
-    "requirejs": "2.1.9",
-    "requirejs-text": "2.0.10",
     "lodash": "2.1.0",
     "handlebars": "1.0.0",
     "backbone": "1.0.0",
@@ -12,7 +10,8 @@
     "backbone.marionette.hbs": "0.0.6",
     "jquery": "~2.0.3",
     "bootstrap": "~3.0.0",
-    "hoodie": "~0.5.3"
+    "backbone.routefilter": "https://raw.github.com/boazsender/backbone.routefilter/master/dist/backbone.routefilter.js",
+    "backbone-hoodie": "https://raw.github.com/hoodiehq/backbone-hoodie/master/src/backbone-hoodie.js"
   },
   "devDependencies": {
     "sinonjs": "~1.7.1",
