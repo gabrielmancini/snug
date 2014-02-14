@@ -1,5 +1,5 @@
 {
-  "name": "snug",
+  "name": "{{hoodie_appname}}",
   "version": "1.6.0",
   "authors": "Sven Lito <me@svenlito.com>",
   "type": "app",
@@ -36,10 +36,10 @@
     "grunt-contrib-uglify": "~0.3.2",
     "brfs": "~0.1.0"
   },
-  "subdomain": "hoodie-snug",
+  "subdomain": "hoodie-{{hoodie_appname}}",
   "domains": [
-    "admin.hoodie-snug.jit.su",
-    "couch.hoodie-snug.jit.su"
+    "admin.hoodie-{{hoodie_appname}}.jit.su",
+    "couch.hoodie-{{hoodie_appname}}.jit.su"
   ],
   "scripts": {
     "start": "node node_modules/hoodie-app/bin/start",
