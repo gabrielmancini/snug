@@ -19,6 +19,7 @@ module.exports = function (grunt) {
   grunt.initConfig({
 
     pkg: require('./package.json'),
+    cfg: {},
 
     jshint: {
       files: [
@@ -30,31 +31,30 @@ module.exports = function (grunt) {
       }
     },
 
+    hoodie: {
+      start: {
+        options: {
+          callback: function (config) {
+            grunt.config.set('cfg', config);
+          }
+        }
+      }
+    },
+
     connect: {
       server: {
         options: {
           port: 9000,
           base: 'www',
-          hostname: 'localhost'
+          hostname: '0.0.0.0'
         },
         proxies: [
           {
             context: '/_api',
-            host: 'localhost',
-            port: undefined
+            host: '<%= cfg.stack.www.host %>',
+            port: '<%= cfg.stack.www.port %>'
           }
         ]
-      }
-    },
-
-    hoodie: {
-      start: {
-        options: {
-          callback: function (config) {
-            grunt.config.set('connect.proxies.0.port', config.stack.www.port);
-            grunt.config.set('connect.proxies.0.host', config.stack.www.host);
-          }
-        }
       }
     },
 
@@ -200,7 +200,8 @@ module.exports = function (grunt) {
   grunt.registerTask('server', [
     'hoodie',
     'connect:server',
-    'connect:proxies',
+    'configureProxies',
+    //'connect:proxies',
     'watch'
   ]);
 
