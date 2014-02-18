@@ -8,6 +8,11 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-browserify');
   grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-exorcise');
+
+  grunt.loadNpmTasks('grunt-contrib-connect');
+  grunt.loadNpmTasks('grunt-connect-proxy');
+  grunt.loadNpmTasks('grunt-hoodie');
 
 
   // Project configuration.
@@ -25,6 +30,34 @@ module.exports = function (grunt) {
       }
     },
 
+    connect: {
+      server: {
+        options: {
+          port: 9000,
+          base: 'www',
+          hostname: 'localhost'
+        },
+        proxies: [
+          {
+            context: '/_api',
+            host: 'localhost',
+            port: undefined
+          }
+        ]
+      }
+    },
+
+    hoodie: {
+      start: {
+        options: {
+          callback: function (config) {
+            grunt.config.set('connect.proxies.0.port', config.stack.www.port);
+            grunt.config.set('connect.proxies.0.host', config.stack.www.host);
+          }
+        }
+      }
+    },
+
     watch: {
       files: ['<%= jshint.files %>', 'www/app/**/*.html'],
       tasks: ['jshint', 'browserify:app'],
@@ -38,7 +71,7 @@ module.exports = function (grunt) {
         options: {
           shim: {
             jquery: {
-              path: 'www/lib/jquery/jquery.js',
+              path: 'node_modules/jquery/dist/jquery.js',
               exports: '$'
             },
             lodash: {
@@ -106,12 +139,12 @@ module.exports = function (grunt) {
       app: {
         options: {
           standalone: 'app',
-          //debug: true,
+          debug: true,
           transform: [
             'brfs'
           ],
           alias: [
-            './www/lib/jquery/jquery.js:jquery',
+            './node_modules/jquery/dist/jquery.js:jquery',
             './www/lib/lodash/dist/lodash.js:lodash',
             './www/lib/underscore/underscore.js:underscore',
             './www/lib/handlebars/handlebars.js:handlebars',
@@ -124,7 +157,7 @@ module.exports = function (grunt) {
 
           ],
           external: [
-            './www/lib/jquery/jquery.js',
+            './node_modules/jquery/dist/jquery.js',
             './www/lib/lodash/dist/lodash.js',
             './www/lib/underscore/underscore.js',
             './www/lib/handlebars/handlebars.js',
@@ -141,6 +174,15 @@ module.exports = function (grunt) {
       }
     },
 
+    exorcise: {
+      options: {
+        bundleDest : 'www/dist/app.js'
+      },
+      files: {
+        'www/dist/app.map': ['www/dist/app.js']
+      },
+    },
+
     uglify: {
       dist: {
         files: {
@@ -154,6 +196,13 @@ module.exports = function (grunt) {
   // Default task.
   grunt.registerTask('default', ['jshint']);
   grunt.registerTask('build', ['jshint', 'browserify', 'uglify']);
+
+  grunt.registerTask('server', [
+    'hoodie',
+    'connect:server',
+    'connect:proxies',
+    'watch'
+  ]);
 
 };
 
