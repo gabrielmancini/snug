@@ -31,6 +31,17 @@ module.exports = function (grunt) {
       }
     },
 
+    watch: {
+      files: [
+        '<%= jshint.files %>',
+        'www/app/**/*.html'
+      ],
+      tasks: ['jshint', 'browserify:app'],
+      options: {
+        livereload: true
+      }
+    },
+
     hoodie: {
       start: {
         options: {
@@ -46,7 +57,15 @@ module.exports = function (grunt) {
         options: {
           port: 9000,
           base: 'www',
-          hostname: '0.0.0.0'
+          hostname: '0.0.0.0',
+          middleware: function (connect, options) {
+            var proxy = require('grunt-connect-proxy/lib/utils').proxyRequest;
+            return [
+              proxy,
+              connect.static(options.base),
+              connect.directory(options.base)
+            ];
+          }
         },
         proxies: [
           {
@@ -54,15 +73,8 @@ module.exports = function (grunt) {
             host: '<%= cfg.stack.www.host %>',
             port: '<%= cfg.stack.www.port %>'
           }
-        ]
-      }
-    },
 
-    watch: {
-      files: ['<%= jshint.files %>', 'www/app/**/*.html'],
-      tasks: ['jshint', 'browserify:app'],
-      options: {
-        livereload: true
+        ]
       }
     },
 
@@ -200,8 +212,7 @@ module.exports = function (grunt) {
   grunt.registerTask('server', [
     'hoodie',
     'connect:server',
-    'configureProxies',
-    //'connect:proxies',
+    'configureProxies:server',
     'watch'
   ]);
 
