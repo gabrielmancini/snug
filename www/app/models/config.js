@@ -24,11 +24,10 @@ var Model = BaseModel.extend({
     },
 
     api: {
-      url: 'http://localhost:6013/_api/'
+      url: 'http://localhost:6001/_api/'
     },
 
     ajax: {
-      contentType: 'application/json; charset=utf-8',
       dataType: 'json',
       timeout: 10000,
       cache: true,
