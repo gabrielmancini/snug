@@ -207,9 +207,8 @@ module.exports = function (grunt) {
 
   // Default task.
   grunt.registerTask('default', ['jshint']);
-  grunt.registerTask('build', ['jshint', 'browserify', 'uglify']);
-
-  grunt.registerTask('server', [
+  grunt.registerTask('build', ['jshint', 'browserify:app', 'uglify']);
+  grunt.registerTask('serve', [
     'hoodie',
     'connect:server',
     'configureProxies:server',
