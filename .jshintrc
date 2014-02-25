@@ -19,7 +19,9 @@
     "Backbone": true,
     "Handlebars": true,
     "app": true,
-    "Marionette": true
+    "Marionette": true,
+    "expect": true,
+    "sinon": true
   },
 
   "bitwise": false,
