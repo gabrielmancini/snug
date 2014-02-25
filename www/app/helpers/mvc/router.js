@@ -1,17 +1,19 @@
 'use strict';
 
-require('routefilter');
-
-var Backbone = require('backbone');
+require('backbone-async-route-filter');
 
 var BaseRouter = Backbone.Router.extend({
 
-  before: function (route) {
-    console.log('before:route', route);
+  before: {
+    '*any': function (fragment, args, next) {
+      next();
+    }
   },
 
-  after: function (route) {
-    console.log('after:route', route);
+  after: {
+    '*any': function (fragment, args, next) {
+      next();
+    }
   }
 
 });
