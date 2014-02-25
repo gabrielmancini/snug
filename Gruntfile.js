@@ -89,60 +89,41 @@ module.exports = function (grunt) {
               exports: '$'
             },
             lodash: {
-              path: 'www/lib/lodash/dist/lodash.js',
+              path: 'node_modules/lodash/dist/lodash.js',
               exports: '_'
             },
             underscore: {
-              path: 'www/lib/underscore/underscore.js',
+              path: 'node_modules/lodash/dist/lodash.underscore.js',
               exports: '_'
             },
-            handlebars: {
-              path: 'www/lib/handlebars/handlebars.js',
-              exports: 'Handlebars'
-            },
             backbone: {
-              path: 'www/lib/backbone/backbone.js',
+              path: 'node_modules/backbone/backbone.js',
               exports: 'Backbone',
               depends: {
                 underscore: 'underscore'
               }
             },
             'backbone.babysitter': {
-              path: 'www/lib/backbone.babysitter/lib/backbone.babysitter.js',
+              path: 'node_modules/backbone.marionette/node_modules/backbone.babysitter/lib/backbone.babysitter.js',
               exports: 'Backbone.Babysitter',
               depends: {
                 backbone: 'Backbone'
               }
             },
             'backbone.wreqr': {
-              path: 'www/lib/backbone.wreqr/lib/backbone.wreqr.js',
+              path: 'node_modules/backbone.marionette/node_modules/backbone.wreqr/lib/backbone.wreqr.js',
               exports: 'Backbone.Wreqr',
               depends: {
                 backbone: 'Backbone'
               }
             },
             'backbone.marionette': {
-              path: 'www/lib/backbone.marionette/lib/backbone.marionette.js',
+              path: 'node_modules/backbone.marionette/lib/backbone.marionette.js',
               exports: 'Marionette',
               depends: {
                 jquery: '$',
                 backbone: 'Backbone',
                 underscore: '_'
-              }
-            },
-            routeFilter: {
-              path: 'www/lib/backbone.routefilter/index.js',
-              exports: 'Backbone.Router',
-              depends: {
-                backbone: 'Backbone'
-              }
-            },
-            'backbone-hoodie': {
-              path: './www/lib/backbone-hoodie/index.js',
-              exports: 'Backbone.Hoodie',
-              depends: {
-                backbone: 'Backbone',
-                hoodie: 'Hoodie'
               }
             }
           }
@@ -153,34 +134,28 @@ module.exports = function (grunt) {
       app: {
         options: {
           standalone: 'app',
-          debug: true,
+          debug: false,
           transform: [
-            'brfs'
+            'hbsfy'
           ],
           alias: [
             './node_modules/jquery/dist/jquery.js:jquery',
-            './www/lib/lodash/dist/lodash.js:lodash',
-            './www/lib/underscore/underscore.js:underscore',
-            './www/lib/handlebars/handlebars.js:handlebars',
-            './www/lib/backbone/backbone.js:backbone',
-            './www/lib/backbone.babysitter/lib/backbone.babysitter.js:backbone.babysitter',
-            './www/lib/backbone.wreqr/lib/backbone.wreqr.js:backbone.wreqr',
-            './www/lib/backbone.marionette/lib/backbone.marionette.js:backbone.marionette',
-            './www/lib/backbone.routefilter/index.js:routefilter',
-            './www/lib/backbone-hoodie/index.js:backbone-hoodie'
+            './node_modules/lodash/dist/lodash.js:lodash',
+            './node_modules/lodash/dist/lodash.underscore.js:underscore',
+            './node_modules/backbone/backbone.js:backbone',
+            './node_modules/backbone.marionette/node_modules/backbone.babysitter/lib/backbone.babysitter.js:backbone.babysitter',
+            './node_modules/backbone.marionette/node_modules/backbone.wreqr/lib/backbone.wreqr.js:backbone.wreqr',
+            './node_modules/backbone.marionette/lib/backbone.marionette.js:backbone.marionette'
 
           ],
           external: [
             './node_modules/jquery/dist/jquery.js',
-            './www/lib/lodash/dist/lodash.js',
-            './www/lib/underscore/underscore.js',
-            './www/lib/handlebars/handlebars.js',
-            './www/lib/backbone/backbone.js',
-            './www/lib/backbone.babysitter/lib/backbone.babysitter.js',
-            './www/lib/backbone.wreqr/lib/backbone.wreqr.js',
-            './www/lib/backbone.marionette/lib/backbone.marionette.js',
-            './www/lib/backbone.routefilter/index.js',
-            './www/lib/backbone-hoodie/index.js'
+            './node_modules/lodash/dist/lodash.js',
+            './node_modules/lodash/dist/lodash.underscore.js',
+            './node_modules/backbone/backbone.js',
+            './node_modules/backbone.marionette/node_modules/backbone.babysitter/lib/backbone.babysitter.js',
+            './node_modules/backbone.marionette/node_modules/backbone.wreqr/lib/backbone.wreqr.js',
+            './node_modules/backbone.marionette/lib/backbone.marionette.js'
           ]
         },
         src: ['www/app/init.js'],

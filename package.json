@@ -13,10 +13,13 @@
     "hoodie-plugin-users": "0.1.0",
     "hoodie": "~0.6.5",
     "jquery": "~2.1.0",
-    "backbone-async-route-filter": "git://github.com/svnlto/backbone-async-route-filter.git#v1.0.0"
+    "backbone-async-route-filter": "git://github.com/svnlto/barf.git#v1.0.0",
+    "backbone-hoodie": "~1.0.2",
+    "lodash": "~2.4.1",
+    "backbone": "~1.1.2",
+    "backbone.marionette": "~1.6.2"
   },
   "devDependencies": {
-    "karma-browserify": "~0.1.0",
     "grunt": "~0.4.2",
     "grunt-karma": "~0.6.2",
     "grunt-concurrent": "~0.4.3",
@@ -27,6 +30,7 @@
     "grunt-exorcise": "~0.1.0",
     "karma": "~0.10.9",
     "karma-phantomjs-launcher": "~0.1.1",
+    "karma-browserify": "~0.1.0",
     "karma-mocha": "~0.1.1",
     "mocha": "~1.17.1",
     "expect.js": "~0.2.0",
@@ -35,7 +39,8 @@
     "grunt-hoodie": "~0.2.1",
     "sinon": "~1.8.2",
     "handlebars": "^1.3.0",
-    "hbsfy": "^1.3.2"
+    "hbsfy": "^1.3.2",
+    "expect": "0.0.2"
   },
   "subdomain": "hoodie-snug",
   "domains": [
