@@ -9,12 +9,18 @@ module.exports = function (config) {
 
 
     // frameworks to use
-    frameworks: ['mocha'],
+    frameworks: ['browserify', 'mocha'],
 
 
     // list of files / patterns to load in the browser
     files: [
-      'tests/app/*.js'
+      { pattern: 'node_modules/jquery/dist/jquery.js', watched: false, included: true },
+      { pattern: 'node_modules/expect.js/expect.js', watched: false, included: true },
+      { pattern: 'node_modules/sinon/pkg/sinon-1.8.2.js', watched: false, included: true },
+      'tests/helpers/runner.js',
+
+      'tests/app/helpers/namespace-spec.js',
+
     ],
 
 
@@ -45,7 +51,6 @@ module.exports = function (config) {
     // enable / disable watching file and executing tests whenever any file changes
     autoWatch: true,
 
-
     // Start these browsers, currently available:
     // - Chrome
     // - ChromeCanary
@@ -56,6 +61,10 @@ module.exports = function (config) {
     // - IE (only Windows; has to be installed with `npm install karma-ie-launcher`)
     browsers: ['PhantomJS'],
 
+    preprocessors: {
+      'tests/app/**/*-spec.js': ['browserify'],
+      'tests/helpers/runner.js': ['browserify']
+    },
 
     // If browser does not capture in given timeout [ms], kill it
     captureTimeout: 60000,
