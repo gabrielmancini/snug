@@ -38,7 +38,7 @@ module.exports = function (grunt) {
         '<%= jshint.files %>',
         'www/app/**/*.html'
       ],
-      tasks: ['jshint', 'browserify:app'],
+      tasks: ['jshint', 'karma:dev', 'browserify:app'],
       options: {
         livereload: true
       }
@@ -205,11 +205,44 @@ module.exports = function (grunt) {
       }
     },
 
+    karma: {
+      options: {
+        configFile: 'karma.conf.js'
+      },
+
+      continuous: {
+        singleRun: true,
+        browsers: [
+          'PhantomJS'
+        ]
+      },
+
+      dev: {
+        singleRun: true,
+        browsers: [
+          'PhantomJS'
+        ]
+      },
+
+      coverage: {
+        reporters: ['progress', 'coverage'],
+        preprocessors: {
+          'app/**/*.js': ['coverage']
+        },
+        coverageReporter: {
+          type : 'html',
+          dir : 'coverage/'
+        }
+      }
+    },
+
   });
 
   // Default task.
   grunt.registerTask('default', ['jshint']);
   grunt.registerTask('build', ['jshint', 'browserify:app', 'uglify']);
+  grunt.registerTask('test', ['jshint', 'karma:dev']);
+
   grunt.registerTask('serve', [
     'hoodie',
     'connect:server',

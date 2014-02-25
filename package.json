@@ -12,11 +12,11 @@
     "hoodie-plugin-email": "0.1.1",
     "hoodie-plugin-users": "0.1.0",
     "hoodie": "~0.6.5",
-    "karma-browserify": "~0.1.0",
     "jquery": "~2.1.0",
     "backbone-async-route-filter": "git://github.com/svnlto/backbone-async-route-filter.git#v1.0.0"
   },
   "devDependencies": {
+    "karma-browserify": "~0.1.0",
     "grunt": "~0.4.2",
     "grunt-karma": "~0.6.2",
     "grunt-concurrent": "~0.4.3",
