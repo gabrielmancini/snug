@@ -135,7 +135,7 @@ module.exports = function (grunt) {
               exports: 'Backbone.hoodie',
               depends: {
                 backbone: 'Backbone',
-                hoodie: 'hoodie'
+                hoodie: 'Hoodie'
               }
             }
           }
