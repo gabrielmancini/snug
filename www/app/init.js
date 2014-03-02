@@ -2,6 +2,7 @@
 var Config = require('./models/config');
 var app = require('./helpers/namespace');
 
+// boot global helpers
 require('./helpers/storage/store');
 require('./helpers/handlebars');
 
@@ -11,6 +12,7 @@ require('./components/structural/layout/index');
 // start the pocket component
 require('./components/snug/index');
 
+// start app
 app.start(new Config().toJSON());
 
 module.exports = app;
