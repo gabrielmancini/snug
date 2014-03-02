@@ -1,5 +1,8 @@
 {
   "name": "snug",
   "version": "0.1.0",
-  "main": "./app/index.html"
+  "main": "./app/index.html",
+  "dependencies": {
+    "hoodie": "http://localhost:9000/_api/_files/hoodie.js"
+  }
 }

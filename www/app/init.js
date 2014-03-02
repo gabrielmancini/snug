@@ -8,11 +8,6 @@ require('./helpers/handlebars');
 // boot up default structural components
 require('./components/structural/layout/index');
 
-require('hoodie');
-require('backbone-hoodie');
-
-global.Backbone.connect();
-
 // start the pocket component
 require('./components/snug/index');
 

@@ -3,6 +3,10 @@
 var Marionette = require('backbone.marionette');
 var Backbone = require('backbone');
 
+require('backbone-hoodie');
+
+global.Backbone.connect();
+
 var Router = require('../router');
 var Config = require('../models/config');
 

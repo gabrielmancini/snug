@@ -84,6 +84,10 @@ module.exports = function (grunt) {
       libs: {
         options: {
           shim: {
+            hoodie: {
+              path: 'www/lib/hoodie/index.js',
+              exports: 'Hoodie'
+            },
             jquery: {
               path: 'node_modules/jquery/dist/jquery.js',
               exports: '$'
@@ -125,6 +129,14 @@ module.exports = function (grunt) {
                 backbone: 'Backbone',
                 underscore: '_'
               }
+            },
+            'backbone-hoodie': {
+              path: 'node_modules/backbone-hoodie/src/backbone-hoodie.js',
+              exports: 'Backbone.hoodie',
+              depends: {
+                backbone: 'Backbone',
+                hoodie: 'hoodie'
+              }
             }
           }
         },
@@ -139,6 +151,7 @@ module.exports = function (grunt) {
             'hbsfy'
           ],
           alias: [
+            './www/lib/hoodie/index.js:hoodie',
             './node_modules/jquery/dist/jquery.js:jquery',
             './node_modules/lodash/dist/lodash.js:lodash',
             './node_modules/lodash/dist/lodash.underscore.js:underscore',
@@ -149,6 +162,7 @@ module.exports = function (grunt) {
 
           ],
           external: [
+            './www/lib/hoodie/index.js',
             './node_modules/jquery/dist/jquery.js',
             './node_modules/lodash/dist/lodash.js',
             './node_modules/lodash/dist/lodash.underscore.js',
