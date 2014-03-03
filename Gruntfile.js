@@ -8,7 +8,6 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-browserify');
   grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-exorcise');
 
   grunt.loadNpmTasks('grunt-karma');
 
@@ -38,7 +37,7 @@ module.exports = function (grunt) {
         '<%= jshint.files %>',
         'www/app/**/*.html'
       ],
-      tasks: ['jshint', 'karma:dev', 'browserify:app'],
+      tasks: ['jshint', 'browserify:app'],
       options: {
         livereload: true
       }
@@ -189,7 +188,7 @@ module.exports = function (grunt) {
     uglify: {
       dist: {
         files: {
-          'www/dist/<%= pkg.name %>.min.js': ['www/app/libs', 'www/app/app.js']
+          'www/dist/<%= pkg.name %>.min.js': ['www/dist/libs', 'www/dist/app.js']
         }
       }
     },
