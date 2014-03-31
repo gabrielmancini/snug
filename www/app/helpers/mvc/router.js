@@ -1,6 +1,6 @@
 'use strict';
 
-require('backbone-async-route-filter');
+require('barf');
 
 var BaseRouter = Backbone.Router.extend({
 
