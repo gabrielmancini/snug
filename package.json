@@ -7,7 +7,7 @@
     "node": ">= 0.10.x"
   },
   "dependencies": {
-    "hoodie-server": "0.9.19",
+    "hoodie-server": "0.9.20",
     "hoodie-plugin-appconfig": "0.1.0",
     "hoodie-plugin-email": "0.1.1",
     "hoodie-plugin-users": "0.1.0",
