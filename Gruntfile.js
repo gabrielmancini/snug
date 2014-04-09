@@ -151,6 +151,7 @@ module.exports = function (grunt) {
           ],
           alias: [
             './www/lib/hoodie/index.js:hoodie',
+            './node_modules/backbone-hoodie/src/backbone-hoodie.js:backbone-hoodie',
             './node_modules/jquery/dist/jquery.js:jquery',
             './node_modules/lodash/dist/lodash.js:lodash',
             './node_modules/lodash/dist/lodash.underscore.js:underscore',
