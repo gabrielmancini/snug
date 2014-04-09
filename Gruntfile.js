@@ -163,6 +163,7 @@ module.exports = function (grunt) {
           ],
           external: [
             './www/lib/hoodie/index.js',
+            './node_modules/backbone-hoodie/src/backbone-hoodie.js',
             './node_modules/jquery/dist/jquery.js',
             './node_modules/lodash/dist/lodash.js',
             './node_modules/lodash/dist/lodash.underscore.js',
