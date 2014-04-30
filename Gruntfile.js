@@ -4,18 +4,6 @@ module.exports = function (grunt) {
 
   'use strict';
 
-  grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-browserify');
-  grunt.loadNpmTasks('grunt-contrib-uglify');
-
-  grunt.loadNpmTasks('grunt-karma');
-
-  grunt.loadNpmTasks('grunt-contrib-connect');
-  grunt.loadNpmTasks('grunt-connect-proxy');
-  grunt.loadNpmTasks('grunt-hoodie');
-
-
   // Project configuration.
   grunt.initConfig({
 
@@ -228,6 +216,8 @@ module.exports = function (grunt) {
 
   });
 
+  require('load-grunt-tasks')(grunt);
+
   // Default task.
   grunt.registerTask('default', ['jshint']);
   grunt.registerTask('build', ['jshint', 'browserify:app', 'uglify']);
@@ -241,4 +231,3 @@ module.exports = function (grunt) {
   ]);
 
 };
-
