@@ -14,7 +14,8 @@
     "jquery": "~2.1.0",
     "angular": "^1.2.16",
     "angular-ui-router": "^0.2.10",
-    "hoodie-plugin-angularjs": "0.0.15"
+    "hoodie-plugin-angularjs": "0.0.15",
+    "partialify": "^3.1.1"
   },
   "devDependencies": {
     "grunt": "~0.4.2",
