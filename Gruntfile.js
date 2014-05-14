@@ -29,7 +29,10 @@ module.exports = function (grunt) {
         '<%= jshint.files %>',
         'www/app/**/*.html'
       ],
-      tasks: ['jshint', 'browserify']
+      tasks: ['jshint', 'browserify'],
+      options: {
+        livereload: true
+      }
     },
 
     hoodie: {
