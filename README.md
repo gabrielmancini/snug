@@ -5,7 +5,7 @@ A set of tools and conventions for building client-side applications with hoodie
 ### Installation
 
 ```bash
-hoodie new mysplendidhoodieapp -t "hoodiehq/snug"
+hoodie new mysplendidhoodieapp -t "hoodiehq/snug#angular"
 ```
 
 ### Usage
