@@ -15,11 +15,7 @@
   "devel": true,
 
   "globals": {
-    "Backbone": true,
-    "Backbone": true,
-    "Handlebars": true,
-    "app": true,
-    "Marionette": true,
+    "angular": true,
     "expect": true,
     "sinon": true
   },

@@ -1,19 +1,23 @@
-/*jshint -W079 */
-var Config = require('./models/config');
-var app = require('./helpers/namespace');
+angular.module('app', [
+  'ui.router',
+  'hoodie',
+  'app.router'
+]);
 
-// boot global helpers
-require('./helpers/storage/store');
-require('./helpers/handlebars');
+angular.module('app.router', [])
+.config(function ($stateProvider, $urlRouterProvider) {
 
-// boot up default structural components
-require('./components/structural/layout/index');
+  $urlRouterProvider.otherwise('/');
 
-// start the pocket component
-require('./components/snug/index');
+  $stateProvider
+  .state('index', {
+    url: '/',
+    views: {
+      header: {},
+      main: {},
+      footer: {}
+    }
+  });
 
-// start app
-app.start(new Config().toJSON());
-
-module.exports = app;
+});
 

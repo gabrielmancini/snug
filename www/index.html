@@ -4,8 +4,11 @@
   <meta charset="utf-8">
   <title>Snug by Hoodie HQ</title>
 </head>
-<body id="container">
-  <div id="content"></div>
+<body ng-app="app">
+  <header ui-view="header"> </header>
+  <main ui-view="main"> </main>
+  <footer ui-view="footer"> </footer>
+
   <script src="dist/libs.js"></script>
   <script src="dist/app.js"></script>
 </body>

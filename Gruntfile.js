@@ -83,7 +83,7 @@ module.exports = function (grunt) {
           'www/dist/app.js': ['www/app/init.js']
         },
         options: {
-          transform: ['hbsfy'],
+          transform: ['browserify-shim'],
           external: sharedModules
         }
       }
