@@ -1,4 +1,8 @@
 /*global module:false*/
+var shims = require('./config/shims');
+var sharedModules = Object.keys(shims).concat([
+  // place all modules you want in the lib build here
+]);
 
 module.exports = function (grunt) {
 
@@ -25,10 +29,7 @@ module.exports = function (grunt) {
         '<%= jshint.files %>',
         'www/app/**/*.html'
       ],
-      tasks: ['jshint', 'browserify'],
-      options: {
-        livereload: true
-      }
+      tasks: ['jshint', 'browserify']
     },
 
     hoodie: {
@@ -68,111 +69,24 @@ module.exports = function (grunt) {
     },
 
     browserify: {
-      libs: {
-        options: {
-          shim: {
-            hoodie: {
-              path: 'www/lib/hoodie/index.js',
-              exports: 'Hoodie'
-            },
-            jquery: {
-              path: 'node_modules/jquery/dist/jquery.js',
-              exports: '$'
-            },
-            lodash: {
-              path: 'node_modules/lodash/dist/lodash.js',
-              exports: '_'
-            },
-            underscore: {
-              path: 'node_modules/lodash/dist/lodash.underscore.js',
-              exports: '_'
-            },
-            backbone: {
-              path: 'node_modules/backbone/backbone.js',
-              exports: 'Backbone',
-              depends: {
-                underscore: 'underscore'
-              }
-            },
-            'backbone.babysitter': {
-              path: 'node_modules/backbone.marionette/node_modules/backbone.babysitter/lib/backbone.babysitter.js',
-              exports: 'Backbone.Babysitter',
-              depends: {
-                backbone: 'Backbone'
-              }
-            },
-            'backbone.wreqr': {
-              path: 'node_modules/backbone.marionette/node_modules/backbone.wreqr/lib/backbone.wreqr.js',
-              exports: 'Backbone.Wreqr',
-              depends: {
-                backbone: 'Backbone'
-              }
-            },
-            'backbone.marionette': {
-              path: 'node_modules/backbone.marionette/lib/backbone.marionette.js',
-              exports: 'Marionette',
-              depends: {
-                jquery: '$',
-                backbone: 'Backbone',
-                underscore: '_'
-              }
-            },
-            'backbone-hoodie': {
-              path: 'node_modules/backbone-hoodie/src/backbone-hoodie.js',
-              exports: 'Backbone.hoodie',
-              depends: {
-                backbone: 'Backbone',
-                hoodie: 'Hoodie'
-              }
-            }
-          }
+      lib: {
+        files: {
+          'www/dist/libs.js': ['www/lib/libs.js']
         },
-        src: ['www/lib/*.js'],
-        dest: 'www/dist/libs.js'
+        options: {
+          transform: ['browserify-shim'],
+          require: sharedModules
+        }
       },
-      app: {
-        options: {
-          standalone: 'app',
-          debug: false,
-          transform: [
-            'hbsfy'
-          ],
-          alias: [
-            './www/lib/hoodie/index.js:hoodie',
-            './node_modules/backbone-hoodie/src/backbone-hoodie.js:backbone-hoodie',
-            './node_modules/jquery/dist/jquery.js:jquery',
-            './node_modules/lodash/dist/lodash.js:lodash',
-            './node_modules/lodash/dist/lodash.underscore.js:underscore',
-            './node_modules/backbone/backbone.js:backbone',
-            './node_modules/backbone.marionette/node_modules/backbone.babysitter/lib/backbone.babysitter.js:backbone.babysitter',
-            './node_modules/backbone.marionette/node_modules/backbone.wreqr/lib/backbone.wreqr.js:backbone.wreqr',
-            './node_modules/backbone.marionette/lib/backbone.marionette.js:backbone.marionette'
-
-          ],
-          external: [
-            './www/lib/hoodie/index.js',
-            './node_modules/backbone-hoodie/src/backbone-hoodie.js',
-            './node_modules/jquery/dist/jquery.js',
-            './node_modules/lodash/dist/lodash.js',
-            './node_modules/lodash/dist/lodash.underscore.js',
-            './node_modules/backbone/backbone.js',
-            './node_modules/backbone.marionette/node_modules/backbone.babysitter/lib/backbone.babysitter.js',
-            './node_modules/backbone.marionette/node_modules/backbone.wreqr/lib/backbone.wreqr.js',
-            './node_modules/backbone.marionette/lib/backbone.marionette.js'
-          ]
+      main: {
+        files: {
+          'www/dist/app.js': ['www/app/init.js']
         },
-        src: ['www/app/init.js'],
-        dest: 'www/dist/app.js',
+        options: {
+          transform: ['hbsfy'],
+          external: sharedModules
+        }
       }
-    },
-
-    exorcise: {
-      options: {
-        bundleDest : 'www/dist/app.js'
-      },
-      files: {
-        'www/dist/app.map': ['www/dist/app.js']
-      },
     },
 
     uglify: {

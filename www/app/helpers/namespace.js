@@ -1,6 +1,6 @@
 /*jshint -W079 */
 'use strict';
-var Marionette = require('backbone.marionette');
+var Marionette = require('marionette');
 var Backbone = require('backbone');
 
 require('backbone-hoodie');

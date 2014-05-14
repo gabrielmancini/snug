@@ -7,7 +7,6 @@
     "node": ">= 0.10.x"
   },
   "dependencies": {
-    "hoodie-server": "0.9.20",
     "hoodie-plugin-appconfig": "0.1.0",
     "hoodie-plugin-email": "0.1.1",
     "hoodie-plugin-users": "0.1.0",
@@ -16,20 +15,18 @@
     "backbone-hoodie": "~1.0.2",
     "lodash": "~2.4.1",
     "backbone": "~1.1.2",
-    "backbone.marionette": "1.7.3"
+    "backbone.marionette": "1.7.3",
+    "hoodie-server": "^0.9.25"
   },
   "devDependencies": {
     "grunt": "~0.4.2",
     "grunt-karma": "~0.6.2",
     "grunt-concurrent": "~0.4.3",
-    "grunt-browserify": "1.3.0",
     "grunt-contrib-watch": "~0.4.4",
     "grunt-contrib-jshint": "~0.8.0",
     "grunt-contrib-uglify": "~0.3.2",
-    "grunt-exorcise": "~0.1.0",
     "karma": "~0.10.9",
     "karma-phantomjs-launcher": "~0.1.1",
-    "karma-browserify": "~0.1.0",
     "karma-mocha": "~0.1.1",
     "mocha": "~1.17.1",
     "expect.js": "~0.2.0",
@@ -40,7 +37,10 @@
     "handlebars": "~1.3.0",
     "hbsfy": "~1.3.2",
     "expect": "0.0.2",
-    "load-grunt-tasks": "^0.4.0"
+    "load-grunt-tasks": "^0.4.0",
+    "grunt-browserify": "^2.0.8",
+    "browserify-shim": "^3.5.0",
+    "karma-browserify": "^0.2.0"
   },
   "subdomain": "hoodie-snug",
   "domains": [
@@ -50,5 +50,22 @@
   "scripts": {
     "start": "node node_modules/hoodie-app/bin/start",
     "test": "grunt test --verbose"
+  },
+  "browserify-shim": "./config/shims.js",
+  "browser": {
+    "hoodie": "./www/lib/hoodie/index.js",
+    "backbone-hoodie": "./node_modules/backbone-hoodie/src/backbone-hoodie.js",
+    "jquery": "./node_modules/jquery/dist/jquery.js",
+    "lodash": "./node_modules/lodash/dist/lodash.js",
+    "underscore": "./node_modules/lodash/dist/lodash.compat.js",
+    "backbone": "./node_modules/backbone/backbone.js",
+    "marionette": "./node_modules/backbone.marionette/lib/backbone.marionette.js"
+  },
+  "hoodie": {
+    "plugins": [
+      "hoodie-plugin-appconfig",
+      "hoodie-plugin-email",
+      "hoodie-plugin-users"
+    ]
   }
 }
