@@ -6,8 +6,6 @@ var sharedModules = Object.keys(shims).concat([
 
 module.exports = function (grunt) {
 
-  'use strict';
-
   // Project configuration.
   grunt.initConfig({
 
@@ -117,18 +115,8 @@ module.exports = function (grunt) {
         browsers: [
           'PhantomJS'
         ]
-      },
-
-      coverage: {
-        reporters: ['progress', 'coverage'],
-        preprocessors: {
-          'app/**/*.js': ['coverage']
-        },
-        coverageReporter: {
-          type : 'html',
-          dir : 'coverage/'
-        }
       }
+
     },
 
   });
