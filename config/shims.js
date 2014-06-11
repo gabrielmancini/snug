@@ -1,6 +1,9 @@
 module.exports = {
   hoodie: {
-    exports: 'Hoodie'
+    exports: 'Hoodie',
+    depends: {
+      jquery: 'jquery'
+    }
   },
   jquery: {
     exports: '$'
