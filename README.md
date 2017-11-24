@@ -1,5 +1,7 @@
 # Snug
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/gabrielmancini/snug.svg)](https://greenkeeper.io/)
+
 A set of tools and conventions for building client-side applications with hoodie.js
 
 ### Installation
